@@ -3,11 +3,11 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivymd.uix.navigationdrawer import NavigationLayout,MDNavigationDrawer
 from kivymd.uix.button import Button, MDRaisedButton
-
+from kivy.properties import ObjectProperty
+from kivy.uix.widget import Widget
 
 KV = '''
 <ContentNavigationDrawer>:
-    theme_cls:"Yellow"
     ScrollView:
 
         MDList:
@@ -23,7 +23,8 @@ KV = '''
                 on_press:
                     root.nav_drawer.set_state("close")
                     root.screen_manager.current = "scr 2"
-
+       
+             
 Screen:
     MDToolbar:
         id: toolbar
@@ -35,17 +36,20 @@ Screen:
     NavigationLayout:
         ScreenManager:
             id: screen_manager
-
+            
             Screen:
                 id: register_screen
                 name: "scr 1"
+                
                 MDRaisedButton:
+                    id: connect_button
                     text:"Photo"
                     #size_hint: 0.1, 0.3
                     pos_hint: {"x":0.5, "top":0.5}
                     background_normal: ''
                     background_down: ''
-                    on_press: root.Connect()
+                    on_press: app.Connect()
+                
 
             Screen:
                 name: "scr 2"
@@ -67,20 +71,19 @@ Screen:
              
 '''
 
-
 class ContentNavigationDrawer(BoxLayout):
-    def Connect(self):
-        print("pressed")
+        pass
 
-class register_screen():
-    def Connect(self):
-        print("pressed")
-
-class TestNavigationDrawer(MDApp):
+class MyApp(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Green"  # "Purple", "Red"
         return Builder.load_string(KV)
 
+    def Connect(self):
+        print("pressed")
 
 
-TestNavigationDrawer().run()
+
+
+
+MyApp().run()
