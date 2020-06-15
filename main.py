@@ -80,7 +80,12 @@ class MyApp(MDApp):
         return Builder.load_string(KV)
 
     def Connect(self):
-        print("pressed")
+        import socket
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('192.168.0.10', 1234))
+
+        msg = s.recv(1024)
+        print(msg.decode("utf-8"))
 
 
 
